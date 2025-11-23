@@ -1,0 +1,65 @@
+﻿
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout>
+
+            
+            <!--бэ-->
+        <Label Text="Название" />
+        <Entry  x:Name="TitleText"/>
+        <Label Text="Описание"/>
+        <Entry x:Name="DiscriptionText"/>
+        <Label Text="Рейтинг" />
+        <Label  x:Name="numberStepper" Text="0"/>
+            <Stepper  Maximum="5" Minimum="0" Increment="0.1"  ValueChanged="OnStepperValueChanged" x:Name="StepperSelect" />
+            <Label Text="Жанр"/>
+        <Picker ItemsSource="{Binding Genres}" x:Name="GenreList"/>
+        <Label Text="Дата выхода"/>
+        <DatePicker  x:Name="DiscriptionDate"/>
+        <Label Text="Минуты"/>
+        <Label Text="0" x:Name="SliderNumber"/>
+        <Slider Minimum="0" Maximum="360" x:Name="SliderMinutes" ValueChanged="OnSliderValueChanged"/>
+            
+            <!--кнопопчки-->
+        <Button  Text="Сохранить" Clicked="Button_Clicked_Movie"/>
+        <Button Text="перейти к авторам" Clicked="Button_Clicked_To_Page2"/>
+        <Button  Text="перейти к списку фильмов"  Clicked="Button_Clicked_To_Page3"/>
+        <Button  Text="Изменить" Clicked="OnChangeClicked"/>
+        <Button  Text="Удалить" Clicked="OnDeleteClicked" />
+            
+            <!--табличка-->
+            <CollectionView ItemsSource="{Binding MovieTablichkaUpdate}" SelectedItem="{Binding SelectedMovies}"   SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+
+                            </Grid.RowDefinitions>
+                            <Label Text="{Binding Id}"  Margin="10,0,5,0" Grid.Row="0"/>
+                            <Label Text="{Binding Name}"  Margin="10,0,5,0" Grid.Row="1"/>
+                            <Label Text="{Binding Description}"  Margin="10,0,5,0" Grid.Row="2"/>
+                            <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" Margin="10,0,0,0" Grid.Row="3"/>
+                            <Label Text="{Binding Ocenochka}"  Margin="10,0,5,0" Grid.Row="4"/>
+                            <Label Text="{Binding Genre}"  Margin="10,0,5,0" Grid.Row="5"/>
+                            <Label Text="{Binding Minutes}"  Margin="10,0,5,0" Grid.Row="6"/>
+                            <Label Text="///////////////" Grid.Row="7"/>
+
+                        </Grid>
+                </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

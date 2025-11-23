@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.Pages.NewPage2"
+             Title="NewPage2">
+    <VerticalStackLayout>
+        
+        
+        <!--пикеры-->
+        <Label Text="Список фильмов" VerticalOptions="Center" HorizontalOptions="Center" />
+        <Label Text="авторы"/>
+        <Picker x:Name="PickerAuthor" SelectedItem="{Binding SelectedAuthor}"  ItemDisplayBinding="{Binding Name}" />
+        <Label Text="Фильмы"/>
+        <Picker x:Name="PickerMovie" SelectedItem="{Binding SelectedMovie}"  ItemDisplayBinding="{Binding Name}" />
+        
+        <!--кнопочки-->
+        <Button  Text="Сохранить"  Clicked="Button_Clicked_Save"/>
+        <Button  Text="Home"  Clicked="Button_Clicked"/>
+        <Button  Text="Изменить" Clicked="OnChangeClicked"/>
+        <Button Text="Удалить" Clicked="OnDeleteClicked"/>
+        
+        
+        <!--табличка-->
+        <ListView ItemsSource="{Binding MainTablichka}" SelectedItem="{Binding SelectedMovieAuthor}" x:Name="Tablyxa" SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Id}"/>
+                                <Label Text="{Binding Author.Name}" Margin="10,0,5,5"/>
+                                <Label Text="{Binding Author.SecondName}" Margin="10,0,5,5" />
+                                <Label Text="{Binding Author.ThrityName}" Margin="10,0,5,5" />
+                                <Label Text="{Binding Movies.Name}" Margin="10,0,5,5" />
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>
