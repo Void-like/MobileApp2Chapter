@@ -16,11 +16,10 @@ public partial class NewPage1 : ContentPage
     public double OcenochkaReal { get; set; }
     public DBFile db;
     public Author SelectedAuthor { get; set; }
-    public NewPage1(DBFile db)
+    public NewPage1()
 	{
 		InitializeComponent();
         BindingContext = this;
-        this.db = db;
         Tablichka();
 
     }
@@ -123,7 +122,7 @@ public partial class NewPage1 : ContentPage
    
     private async void Button_Clicked_Home(object sender, EventArgs e)
     {
-        await Navigation.PushModalAsync(new MainPage());
+        await Shell.Current.GoToAsync(nameof(MainPage));
     }
 
     private void OnStepperValueChanged(object sender, ValueChangedEventArgs e)

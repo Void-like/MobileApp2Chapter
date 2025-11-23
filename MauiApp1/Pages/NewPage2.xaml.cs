@@ -17,10 +17,9 @@ public partial class NewPage2 : ContentPage
     public List<Author> AuthorList { get; set; }
     public List<Movie> MovieList { get; set; }
 
-    public NewPage2(DBFile db)
+    public NewPage2()
     {
-        InitializeComponent();
-        this.db = db;
+        InitializeComponent();   
         Tablichka();
         BindingContext = this;
     }
@@ -186,6 +185,6 @@ public partial class NewPage2 : ContentPage
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushModalAsync(new MainPage());
+        await Shell.Current.GoToAsync(nameof(MainPage));
     }
 }

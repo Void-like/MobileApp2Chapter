@@ -122,13 +122,41 @@ namespace MauiApp1
 
         }
         public async void Button_Clicked_To_Page2(object sender, EventArgs e)
-        {   
-            await Navigation.PushModalAsync(new NewPage1(db));
+        {
+            try
+            {
+                if (Shell.Current != null)
+                {
+                    await Shell.Current.GoToAsync(nameof(NewPage2));
+
+                }
+                else
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(new NewPage2());
+                }
+            }
+            catch(Exception ex) 
+            { 
+            
+            
+            }
         }
+        
         public async void Button_Clicked_To_Page3(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NewPage2(db));
+    
+            if (Shell.Current != null)
+            {
+                await Shell.Current.GoToAsync(nameof(NewPage2));
+                
+            }
+            else
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new NewPage2());
+            }
+            
         }
+
 
         private void OnStepperValueChanged(object sender, ValueChangedEventArgs e)
         {

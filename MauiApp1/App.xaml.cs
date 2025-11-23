@@ -1,4 +1,5 @@
-﻿namespace MauiApp1
+﻿using MauiApp1.Pages;
+namespace MauiApp1
 {
     public partial class App : Application
     {
@@ -9,7 +10,7 @@
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new NavigationPage(new MainPage()));
+            return new Window(new NavigationPage(new Sign()));
         }
     }
 }
