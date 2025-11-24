@@ -14,7 +14,7 @@ namespace MauiApp1
         public List<Movie> MovieTablichka { get; set; } = new List<Movie>();
         public List<string> Genres { get; set; } = new List<string> { "Хоррор","Комедия","Романтика","Боевик"};
          
-       public double OcenochkaReal {  get; set; }
+      
 
        public DBFile db = new DBFile();
        public Movie SelectedMovies { get; set; }
@@ -33,7 +33,7 @@ namespace MauiApp1
             }
             else
             {
-                await db.AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, OcenochkaReal, GenreList.SelectedItem.ToString(), SliderMinutes.Value);
+                await db.AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value);
                 await DisplayAlert("Успех", "Фильм сохранен", "Ок");
                 Tablichka();
             }    
@@ -70,7 +70,7 @@ namespace MauiApp1
                     }
                     else
                     {
-                        await db.ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, OcenochkaReal, GenreList.SelectedItem.ToString(), SliderMinutes.Value);
+                        await db.ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value);
                         await DisplayAlert("Успех", "Киношка поменялась", "Емае");
                         Tablichka();
                     }
@@ -122,41 +122,13 @@ namespace MauiApp1
 
         }
         public async void Button_Clicked_To_Page2(object sender, EventArgs e)
-        {
-            try
-            {
-                if (Shell.Current != null)
-                {
-                    await Shell.Current.GoToAsync(nameof(NewPage2));
-
-                }
-                else
-                {
-                    await Application.Current.MainPage.Navigation.PushAsync(new NewPage2());
-                }
-            }
-            catch(Exception ex) 
-            { 
-            
-            
-            }
+        {   
+            await Navigation.PushModalAsync(new NewPage1(db));
         }
-        
         public async void Button_Clicked_To_Page3(object sender, EventArgs e)
         {
-    
-            if (Shell.Current != null)
-            {
-                await Shell.Current.GoToAsync(nameof(NewPage2));
-                
-            }
-            else
-            {
-                await Application.Current.MainPage.Navigation.PushAsync(new NewPage2());
-            }
-            
+            await Navigation.PushModalAsync(new NewPage2(db));
         }
-
 
         private void OnStepperValueChanged(object sender, ValueChangedEventArgs e)
         {
