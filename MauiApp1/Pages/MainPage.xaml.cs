@@ -1,4 +1,5 @@
-﻿using MauiApp1.DB;
+﻿
+using MauiApp1.DB;
 using MauiApp1.Models;
 using MauiApp1.Pages;
 using System.Collections.ObjectModel;
@@ -13,7 +14,7 @@ namespace MauiApp1
         public ObservableCollection<Movie> MovieTablichkaUpdate { get; set; } = new ObservableCollection<Movie>();
         public List<Movie> MovieTablichka { get; set; } = new List<Movie>();
         public List<string> Genres { get; set; } = new List<string> { "Хоррор","Комедия","Романтика","Боевик"};
-         
+        public byte[] ImageUser { get; set; }
       
 
        public DBFile db = new DBFile();
@@ -33,7 +34,7 @@ namespace MauiApp1
             }
             else
             {
-                await db.AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value);
+                await db.AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, ImageUser);
                 await DisplayAlert("Успех", "Фильм сохранен", "Ок");
                 Tablichka();
             }    
@@ -70,7 +71,7 @@ namespace MauiApp1
                     }
                     else
                     {
-                        await db.ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value);
+                        await db.ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, ImageUser);
                         await DisplayAlert("Успех", "Киношка поменялась", "Емае");
                         Tablichka();
                     }
@@ -139,7 +140,13 @@ namespace MauiApp1
         {
             SliderNumber.Text = SliderMinutes.Value.ToString();
         }
+
+        private void LoadImage(object sender, EventArgs e)
+        {
+
+        }
+    }
     }
 
-    }
+    
 

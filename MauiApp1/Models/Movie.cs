@@ -20,6 +20,7 @@ namespace MauiApp1.Models
         public string Genre { get; set; }
 
         public double Minutes { get; set; }
+        public byte[] Image { get; set; }
 
 
 

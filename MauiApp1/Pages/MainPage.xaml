@@ -22,8 +22,10 @@
         <Label Text="Минуты"/>
         <Label Text="0" x:Name="SliderNumber"/>
         <Slider Minimum="0" Maximum="360" x:Name="SliderMinutes" ValueChanged="OnSliderValueChanged"/>
-            
+        <Label Text="Картинка"/>
+        <Image Source="{Binding ImageUser}"/>
             <!--кнопопчки-->
+        <Button Text="загрузить картинку" Clicked="LoadImage"/>
         <Button  Text="Сохранить" Clicked="Button_Clicked_Movie"/>
         <Button Text="перейти к авторам" Clicked="Button_Clicked_To_Page2"/>
         <Button  Text="перейти к списку фильмов"  Clicked="Button_Clicked_To_Page3"/>

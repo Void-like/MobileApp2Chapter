@@ -16,7 +16,8 @@ namespace MauiApp1.DB
         private List<Author> authorList = new List<Author>();
         private List<Movie> moviesList = new List<Movie>();
         private List<MoviesAuthors> listMovies = new List<MoviesAuthors>();
-        private List<int> ints = new List<int> { 0, 0, 0 };
+        private List<User> userList = new List<User>();
+        private List<int> ints = new List<int> { 0, 0, 0, 0 };
 
 
         public DBFile()
@@ -57,7 +58,7 @@ namespace MauiApp1.DB
 
         }
        
-        public async Task ChangeMovie(int id, string name, string description, DateTime date, double ocenochka, string genre, double minutes)
+        public async Task ChangeMovie(int id, string name, string description, DateTime date, double ocenochka, string genre, double minutes,byte[] image)
         {
             Movie movies = new Movie();
             movies.Id = id;
@@ -67,6 +68,7 @@ namespace MauiApp1.DB
             movies.Genre = genre;
             movies.Minutes = minutes;
             movies.Ocenochka = ocenochka;
+            movies.Image = image;   
 
             int a = 0;
             int b = 0;
@@ -133,7 +135,11 @@ namespace MauiApp1.DB
             await Task.Delay(1000);
             return moviesList;
         }
-
+        public async Task<List<User>> GetUserList()
+        {
+            await Task.Delay(1000);
+            return userList;
+        }
 
 
 
@@ -196,6 +202,19 @@ namespace MauiApp1.DB
 
 
         //Добавление
+        public async Task AddUser(string username, string password, string email)
+        {
+            User user = new User();
+            user.Id = ints[3];
+            user.Email = email;
+            user.Name = username;
+            user.Password = password;
+          
+            userList.Add(user);
+            ints[3] = ints[3] + 1;
+            await SaveFileDiscriminant();
+            await SaveUser();
+        }
         public async Task AddAuthor(string name, string secondName, string thrityName, DateTime birthDay , string gender ,double ocenochka,bool isalive)
         {
             Author author = new Author();
@@ -212,7 +231,7 @@ namespace MauiApp1.DB
             await SaveFileDiscriminant();
             await SaveFileAuthor();
         }
-        public async Task AddMovies(string name, string description, DateTime date, double ocenochka, string genre,double minutes)
+        public async Task AddMovies(string name, string description, DateTime date, double ocenochka, string genre,double minutes, byte[] image )
         {
             Movie movies = new Movie();
             movies.Id = ints[1];
@@ -222,6 +241,7 @@ namespace MauiApp1.DB
             movies.Ocenochka = ocenochka;
             movies.Genre = genre;
             movies.Minutes = minutes;
+            movies.Image = image;
             moviesList.Add(movies);
             ints[1] = ints[1] + 1;
             await SaveFileDiscriminant();
@@ -338,6 +358,27 @@ namespace MauiApp1.DB
             }
 
         }
+        public async Task SaveUser()
+        {
+
+            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "user.db");
+            using (FileStream outputStream = File.Create(targetFile))
+            {
+                await JsonSerializer.SerializeAsync(outputStream, userList);
+            }
+        }
+        public async Task LoadUser()
+        {
+
+            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "user.db");
+            if (File.Exists(targetFile))
+            {
+                string a = await File.ReadAllTextAsync(targetFile);
+                userList = JsonSerializer.Deserialize<List<User>>(a);
+
+            }
+
+        }
         //все загружаем и я не мопс
         public async void LoadDis()
         {
@@ -345,6 +386,7 @@ namespace MauiApp1.DB
             await LoadFileAuthor();
             await LoadFileMovie();
             await LoadFileListMovie();
+            await LoadUser();
         }
 
     }
