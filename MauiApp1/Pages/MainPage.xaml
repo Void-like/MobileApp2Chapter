@@ -1,8 +1,9 @@
 ﻿
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.Pages.MainPage">
-
+             x:Class="MauiApp1.Pages.MainPage"
+               Title="Фильмы">
+             
     <ScrollView>
         <VerticalStackLayout>
 

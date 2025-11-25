@@ -16,7 +16,7 @@ namespace MauiApp1.Pages
         public List<string> Genres { get; set; } = new List<string> { "Хоррор","Комедия","Романтика","Боевик"};
       
       
-       public Movie SelectedMovies { get; set; }
+       public Movie SelectedMovies { get; set; } = new Movie();
 
         public MainPage()
         {

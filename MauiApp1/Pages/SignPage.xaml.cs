@@ -1,11 +1,12 @@
 using MauiApp1.DB;
 using MauiApp1.Models;
+using MauiApp1;
 namespace MauiApp1.Pages;
 
 public partial class SignPage : ContentPage
 {
     private bool Login;
-    public User userNow;
+    public User userNow = new User();
     private List<User> userlist = new List<User>();
     public SignPage()
 	{
@@ -14,6 +15,7 @@ public partial class SignPage : ContentPage
 	}
 	public async void  Sign()
 	{
+        userlist = await (await DBFile.GetDB()).GetUserList();
         Login = false;
         if (String.IsNullOrEmpty(LoginEntry.Text) || String.IsNullOrEmpty(PasswordEntry.Text))
 		{
@@ -22,12 +24,12 @@ public partial class SignPage : ContentPage
 		else
 		{
             
-            userlist = await (await DBFile.GetDB()).GetUserList();
-            foreach (User user in userlist) 
-            { 
-            if(user.Name == LoginEntry.Text && user.Password == PasswordEntry.Text)
+            
+            for(int i = 0; i < userlist.Count; i++)
             {
-              userNow = user;
+                if (userlist[i].Name == LoginEntry.Text && userlist[i].Password == PasswordEntry.Text)
+            {
+              userNow = userlist[i];
               Login = true;
               break;
             }
@@ -37,8 +39,8 @@ public partial class SignPage : ContentPage
             }
             if (Login)
             {
-                await Shell.Current.GoToAsync("MainPage");
 
+                await Shell.Current.GoToAsync("NewPage1");
             }
             else
             {
@@ -48,7 +50,6 @@ public partial class SignPage : ContentPage
 		
 
 	}
-
     private void SignButton(object sender, EventArgs e)
     {
         Sign();
