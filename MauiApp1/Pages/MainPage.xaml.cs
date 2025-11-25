@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 
-namespace MauiApp1
+namespace MauiApp1.Pages
 {
     public partial class MainPage : ContentPage
     {
@@ -16,8 +16,6 @@ namespace MauiApp1
         public List<string> Genres { get; set; } = new List<string> { "Хоррор","Комедия","Романтика","Боевик"};
       
       
-
-       public DBFile db = DBFile.GetDB();
        public Movie SelectedMovies { get; set; }
 
         public MainPage()
@@ -34,7 +32,8 @@ namespace MauiApp1
             }
             else
             {
-                await db.AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL);
+
+                await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL);
                 await DisplayAlert("Успех", "Фильм сохранен", "Ок");
                 Tablichka();
             }    
@@ -43,7 +42,7 @@ namespace MauiApp1
         public async void Tablichka()
         {
             MovieTablichkaUpdate.Clear();
-            MovieTablichka = await db.GetMovieList();
+            MovieTablichka = await (await DBFile.GetDB()).GetMovieList();
             for (int i = 0;i< MovieTablichka.Count; i++)
             {
                 MovieTablichkaUpdate.Add(MovieTablichka[i]);
@@ -71,7 +70,7 @@ namespace MauiApp1
                     }
                     else
                     {
-                        await db.ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL);
+                        await (await DBFile.GetDB()).ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL);
                         await DisplayAlert("Успех", "Киношка поменялась", "Емае");
                         Tablichka();
                     }
@@ -93,7 +92,7 @@ namespace MauiApp1
 
             if (SelectedMovies != null)
             {
-                List<MoviesAuthors> list = await db.GetMovieAuthorList();
+                List<MoviesAuthors> list = await (await DBFile.GetDB()).GetMovieAuthorList();
                 foreach (MoviesAuthors auth in list)
                 {
                     if (auth.IdMovie == SelectedMovies.Id)
@@ -107,7 +106,7 @@ namespace MauiApp1
                 }
                 if (inList)
                 {
-                    await db.DelMovie(SelectedMovies.Id);
+                    await (await DBFile.GetDB()).DelMovie(SelectedMovies.Id);
                     await DisplayAlert("Успех", $"Фильм {SelectedMovies.Name} удален", "Ок");
                     Tablichka();
                 }
@@ -123,12 +122,12 @@ namespace MauiApp1
 
         }
         public async void Button_Clicked_To_Page2(object sender, EventArgs e)
-        {   
-            await Navigation.PushModalAsync(new NewPage1());
+        {
+            await Shell.Current.GoToAsync("NewPage2");
         }
         public async void Button_Clicked_To_Page3(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NewPage2());
+            await Shell.Current.GoToAsync("NewPage3");
         }
 
         private void OnStepperValueChanged(object sender, ValueChangedEventArgs e)

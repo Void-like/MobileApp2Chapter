@@ -10,7 +10,7 @@ namespace MauiApp1
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new NavigationPage(new SignPage()));
+            return new Window(new NavigationPage(new AppShell()));
         }
     }
 }

@@ -4,7 +4,7 @@ namespace MauiApp1.Pages;
 
 public partial class RegisterPage : ContentPage
 {
-    public DBFile db = DBFile.GetDB();
+    
     public RegisterPage()
 	{
 		InitializeComponent();
@@ -21,7 +21,7 @@ public partial class RegisterPage : ContentPage
             {
                 if(Mail.Text.Contains("@")&& Mail.Text.Contains("."))
                 {
-                    await db.AddUser(LoginEntry.Text,PasswordEntry.Text,Mail.Text);
+                    await (await DBFile.GetDB()).AddUser(LoginEntry.Text,PasswordEntry.Text,Mail.Text);
                     await DisplayAlert("Успех", "вы зарегались", "OK");
                 }
                 else
@@ -47,8 +47,5 @@ public partial class RegisterPage : ContentPage
         Registration();
     }
 
-    private void SignButton(object sender, EventArgs e)
-    {
-        //переход
-    }
+   
 }

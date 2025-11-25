@@ -9,6 +9,6 @@
         <Label Text="Пароль"/>
         <Entry x:Name="PasswordEntry"/>
         <Button Text="Войти" Clicked="SignButton"/>
-        <Button Text="Регистрация" Clicked="RegButton"/>
+        
     </VerticalStackLayout>
 </ContentPage>

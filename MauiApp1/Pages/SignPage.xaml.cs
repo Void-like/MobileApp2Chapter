@@ -5,12 +5,12 @@ namespace MauiApp1.Pages;
 public partial class SignPage : ContentPage
 {
     private bool Login;
-    public DBFile db = DBFile.GetDB();
     public User userNow;
     private List<User> userlist = new List<User>();
     public SignPage()
 	{
 		InitializeComponent();
+        
 	}
 	public async void  Sign()
 	{
@@ -22,7 +22,7 @@ public partial class SignPage : ContentPage
 		else
 		{
             
-            userlist = await db.GetUserList();
+            userlist = await (await DBFile.GetDB()).GetUserList();
             foreach (User user in userlist) 
             { 
             if(user.Name == LoginEntry.Text && user.Password == PasswordEntry.Text)
@@ -37,7 +37,7 @@ public partial class SignPage : ContentPage
             }
             if (Login)
             {
-                //потом переходим
+                await Shell.Current.GoToAsync("MainPage");
 
             }
             else
@@ -54,8 +54,5 @@ public partial class SignPage : ContentPage
         Sign();
     }
 
-    private async void RegButton(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("RegisterPage");
-    }
+  
 }

@@ -20,24 +20,18 @@ namespace MauiApp1.DB
         private List<User> userList = new List<User>();
         private List<int> ints = new List<int> { 0, 0, 0, 0 };
         private static DBFile db;
-        public static DBFile GetDB()
+        public static async Task<DBFile> GetDB()
         {
             if(db == null)
             {
                 db = new DBFile();
-                
+                await db.LoadDis();
 
             }
             return db;
 
         }
        
-
-        public DBFile()
-        {
-            LoadDis();
-
-        }
 
 
 
@@ -393,7 +387,7 @@ namespace MauiApp1.DB
 
         }
         //все загружаем и я не мопс
-        public async void LoadDis()
+        public async Task LoadDis()
         {
             await LoadDiscriminant();
             await LoadFileAuthor();
@@ -413,8 +407,8 @@ namespace MauiApp1.DB
 //2. Стилизовать FlyoutItem, Tab, TabBar (цвет, шрифт и т.д.).
 //3. Создать свои ContentView и найти им применение в приложении.
 //4. У всплывающего меню сделать в AppShell свои Header и Footer.
-//5. Сделать страницы авторизации и регистрации.
-//5.1. При запуске приложения первой страницей открывается авторизация.
+//5. Сделать страницы авторизации и регистрации.☑
+//5.1. При запуске приложения первой страницей открывается авторизация.☑
 //5.2. Находясь на этих страницах не должны отображаться всплывающее меню.
-//6. Сделать загрузку пользователем файлов (изображений, документов и т.д.).
+//6. Сделать загрузку пользователем файлов (изображений, документов и т.д.).☑
 

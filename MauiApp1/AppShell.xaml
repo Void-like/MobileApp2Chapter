@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:local="clr-namespace:MauiApp1.Pages"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.Pages.AppShell"
+             Shell.Title="WW Movies.Coms">
+    <TabBar>
+      
+        <ShellContent Title="Регистрация" ContentTemplate="{DataTemplate local:RegisterPage}" Route="Register"/>
+        <ShellContent Title="Вход" ContentTemplate="{DataTemplate local:SignPage}" Route="Sign"/>
+
+        
+
+    </TabBar>
+    <FlyoutItem>
+        <ShellContent Title="Главное" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+    </FlyoutItem>
+    <Tab>
+      
+       
+
+    </Tab>
+    
+</Shell>

@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace MauiApp1;
+namespace MauiApp1.Pages;
 
 public partial class NewPage1 : ContentPage
 {
@@ -14,7 +14,6 @@ public partial class NewPage1 : ContentPage
     public List<Author> AuthorTablichka { get; set; } = new List<Author>();
     public List<string> Genres { get; set; } = new List<string> { "Мужчина", "Девушка" };
    
-    public DBFile db = DBFile.GetDB();
     public Author SelectedAuthor { get; set; }
     public NewPage1()
 	{
@@ -32,7 +31,7 @@ public partial class NewPage1 : ContentPage
         }
         else
         {
-            await db.AddAuthor(Name.Text, SecondName.Text, ThirtyName.Text, BirthDayText.Date, gender.SelectedItem.ToString(), StepperSelect.Value, LiveOrDie.IsToggled);
+            await (await DBFile.GetDB()).AddAuthor(Name.Text, SecondName.Text, ThirtyName.Text, BirthDayText.Date, gender.SelectedItem.ToString(), StepperSelect.Value, LiveOrDie.IsToggled);
             await DisplayAlert("Успех", "Автор добавлен", "Ок");
         }
         Tablichka();
@@ -43,7 +42,7 @@ public partial class NewPage1 : ContentPage
      
         if (SelectedAuthor != null)
         {
-            List<MoviesAuthors> list = await db.GetMovieAuthorList();
+            List<MoviesAuthors> list = await (await DBFile.GetDB()).GetMovieAuthorList();
             foreach (MoviesAuthors auth in list)
             {
                 if (auth.IdAuthor == SelectedAuthor.Id)
@@ -57,7 +56,7 @@ public partial class NewPage1 : ContentPage
             }
             if (inList)
             {
-                await db.DelAuthor(SelectedAuthor.Id);
+                await (await DBFile.GetDB()).DelAuthor(SelectedAuthor.Id);
                 await DisplayAlert("Успех", $"автор {SelectedAuthor.SecondName} {SelectedAuthor.Name} удален", "Ок");
                 Tablichka();
             }
@@ -88,7 +87,7 @@ public partial class NewPage1 : ContentPage
                 }
                 else
                 {
-                    await db.ChangeAuthor(SelectedAuthor.Id, Name.Text, SecondName.Text, ThirtyName.Text, BirthDayText.Date, gender.SelectedItem.ToString(), StepperSelect.Value, LiveOrDie.IsToggled);
+                    await (await DBFile.GetDB()).ChangeAuthor(SelectedAuthor.Id, Name.Text, SecondName.Text, ThirtyName.Text, BirthDayText.Date, gender.SelectedItem.ToString(), StepperSelect.Value, LiveOrDie.IsToggled);
                     await DisplayAlert("Успех", "Данные автора изменены", "ок");
                     Tablichka();
                 }
@@ -107,7 +106,7 @@ public partial class NewPage1 : ContentPage
     public async void Tablichka()
     {
         AuthorTablichkaUpdate.Clear();
-        AuthorTablichka = await db.GetAuthorList();
+        AuthorTablichka = await (await DBFile.GetDB()).GetAuthorList();
         for (int i = 0; i < AuthorTablichka.Count; i++) 
         {
             AuthorTablichkaUpdate.Add(AuthorTablichka[i]);
@@ -122,7 +121,7 @@ public partial class NewPage1 : ContentPage
    
     private async void Button_Clicked_Home(object sender, EventArgs e)
     {
-        await Navigation.PushModalAsync(new MainPage());
+        await Shell.Current.GoToAsync("MainPage");
     }
 
     private void OnStepperValueChanged(object sender, ValueChangedEventArgs e)

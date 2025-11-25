@@ -16,7 +16,7 @@ public partial class NewPage2 : ContentPage
     public List<MoviesAuthors> ListMoviess { get; set; }
     public List<Author> AuthorList { get; set; }
     public List<Movie> MovieList { get; set; }
-    public DBFile db = DBFile.GetDB();
+  
     public NewPage2()
     {
         InitializeComponent();   
@@ -105,7 +105,7 @@ public partial class NewPage2 : ContentPage
         }
         else
         {
-            await db.ListMoviesAdd(SelectedAuthor.Id, SelectedMovie.Id);
+            await (await DBFile.GetDB()).ListMoviesAdd(SelectedAuthor.Id, SelectedMovie.Id);
             await DisplayAlert("Успех", "Связь добавлена", "OK");
         }
         SelectedAuthor = null;
@@ -117,9 +117,9 @@ public partial class NewPage2 : ContentPage
     {
         try
         {
-            var getMovewAuthorListTask = db.GetMovieAuthorList();
-            var getMoviesTask = db.GetMovieList();
-            var getAuthorsTask = db.GetAuthorList();
+            var getMovewAuthorListTask = (await DBFile.GetDB()).GetMovieAuthorList();
+            var getMoviesTask = (await DBFile.GetDB()).GetMovieList();
+            var getAuthorsTask = (await DBFile.GetDB()).GetAuthorList();
             AuthorList = await getAuthorsTask;
             MovieList = await getMoviesTask;
             ListMoviess = await getMovewAuthorListTask;
@@ -156,7 +156,7 @@ public partial class NewPage2 : ContentPage
             bool result = await DisplayAlert("Изменение",$"Вы уверены, что хотите изменить связь  {SelectedMovieAuthor.Id}?", "Да", "Нет");
             if (result)
             {
-                await db.ListMoviesChange(SelectedMovieAuthor.Id, SelectedAuthor.Id, SelectedMovie.Id);
+                await (await DBFile.GetDB()).ListMoviesChange(SelectedMovieAuthor.Id, SelectedAuthor.Id, SelectedMovie.Id);
                 await DisplayAlert("Успех", "Связь изменена", "OK");
             }
             else
@@ -176,8 +176,8 @@ public partial class NewPage2 : ContentPage
         }
         else
         {
-            
-          await  db.ListMoviesDel(SelectedMovieAuthor.Id);
+
+            await (await DBFile.GetDB()).ListMoviesDel(SelectedMovieAuthor.Id);
           await DisplayAlert("Успех", "Связь удалена", "OK");
         }
         Tablichka();
@@ -185,6 +185,6 @@ public partial class NewPage2 : ContentPage
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushModalAsync(new MainPage());
+        await Shell.Current.GoToAsync("MainPage");
     }
 }
