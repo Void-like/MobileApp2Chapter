@@ -4,8 +4,8 @@ namespace MauiApp1.Pages;
 
 public partial class RegisterPage : ContentPage
 {
-    DBFile db;
-	public RegisterPage()
+    public DBFile db = DBFile.GetDB();
+    public RegisterPage()
 	{
 		InitializeComponent();
 	}
@@ -17,7 +17,7 @@ public partial class RegisterPage : ContentPage
         }
         else
         {
-            if (SecondPasswordEntry == PasswordEntry)
+            if (PasswordEntry.Text == SecondPasswordEntry.Text)
             {
                 if(Mail.Text.Contains("@")&& Mail.Text.Contains("."))
                 {

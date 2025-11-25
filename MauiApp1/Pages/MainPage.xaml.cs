@@ -14,10 +14,10 @@ namespace MauiApp1
         public ObservableCollection<Movie> MovieTablichkaUpdate { get; set; } = new ObservableCollection<Movie>();
         public List<Movie> MovieTablichka { get; set; } = new List<Movie>();
         public List<string> Genres { get; set; } = new List<string> { "Хоррор","Комедия","Романтика","Боевик"};
-        public byte[] ImageUser { get; set; }
+      
       
 
-       public DBFile db = new DBFile();
+       public DBFile db = DBFile.GetDB();
        public Movie SelectedMovies { get; set; }
 
         public MainPage()
@@ -34,7 +34,7 @@ namespace MauiApp1
             }
             else
             {
-                await db.AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, ImageUser);
+                await db.AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL);
                 await DisplayAlert("Успех", "Фильм сохранен", "Ок");
                 Tablichka();
             }    
@@ -71,7 +71,7 @@ namespace MauiApp1
                     }
                     else
                     {
-                        await db.ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, ImageUser);
+                        await db.ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL);
                         await DisplayAlert("Успех", "Киношка поменялась", "Емае");
                         Tablichka();
                     }
@@ -124,11 +124,11 @@ namespace MauiApp1
         }
         public async void Button_Clicked_To_Page2(object sender, EventArgs e)
         {   
-            await Navigation.PushModalAsync(new NewPage1(db));
+            await Navigation.PushModalAsync(new NewPage1());
         }
         public async void Button_Clicked_To_Page3(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NewPage2(db));
+            await Navigation.PushModalAsync(new NewPage2());
         }
 
         private void OnStepperValueChanged(object sender, ValueChangedEventArgs e)
@@ -141,10 +141,27 @@ namespace MauiApp1
             SliderNumber.Text = SliderMinutes.Value.ToString();
         }
 
-        private void LoadImage(object sender, EventArgs e)
+        private async void LoadImage(object sender, EventArgs e)
         {
+            FilePicker.Default.PickAsync();
+            var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>();
+            dictionary[DevicePlatform.Android] = new List<string>{ "jpg", "png","jpeg" };
+            dictionary[DevicePlatform.WinUI] = new List<string> { "jpg", "png", "jpeg" };
+            PickOptions pickOptions = new PickOptions();
+            pickOptions.FileTypes = new FilePickerFileType(dictionary);
+            FileResult fileResult = await FilePicker.Default.PickAsync(pickOptions);
+            if (fileResult != null) 
+            {
+                Stream inputStream = await fileResult.OpenReadAsync();
+                imageL.Source = ImageSource.FromStream(()=>inputStream);
+
+
+
+            }
 
         }
+
+     
     }
     }
 

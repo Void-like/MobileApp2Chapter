@@ -11,6 +11,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 namespace MauiApp1.DB
 {
+    
     public class DBFile
     {
         private List<Author> authorList = new List<Author>();
@@ -18,7 +19,19 @@ namespace MauiApp1.DB
         private List<MoviesAuthors> listMovies = new List<MoviesAuthors>();
         private List<User> userList = new List<User>();
         private List<int> ints = new List<int> { 0, 0, 0, 0 };
+        private static DBFile db;
+        public static DBFile GetDB()
+        {
+            if(db == null)
+            {
+                db = new DBFile();
+                
 
+            }
+            return db;
+
+        }
+       
 
         public DBFile()
         {
@@ -58,7 +71,7 @@ namespace MauiApp1.DB
 
         }
        
-        public async Task ChangeMovie(int id, string name, string description, DateTime date, double ocenochka, string genre, double minutes,byte[] image)
+        public async Task ChangeMovie(int id, string name, string description, DateTime date, double ocenochka, string genre, double minutes,Image image)
         {
             Movie movies = new Movie();
             movies.Id = id;
@@ -231,7 +244,7 @@ namespace MauiApp1.DB
             await SaveFileDiscriminant();
             await SaveFileAuthor();
         }
-        public async Task AddMovies(string name, string description, DateTime date, double ocenochka, string genre,double minutes, byte[] image )
+        public async Task AddMovies(string name, string description, DateTime date, double ocenochka, string genre,double minutes, Image image )
         {
             Movie movies = new Movie();
             movies.Id = ints[1];
@@ -340,7 +353,7 @@ namespace MauiApp1.DB
         public async Task SaveFileDiscriminant()
         {
 
-            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "discriminant2.db");
+            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "discriminant3.db");
             using (FileStream outputStream = File.Create(targetFile))
             {
                 await JsonSerializer.SerializeAsync(outputStream, ints);
@@ -349,7 +362,7 @@ namespace MauiApp1.DB
         public async Task LoadDiscriminant()
         {
 
-            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "discriminant2.db");
+            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "discriminant3.db");
             if (File.Exists(targetFile))
             {
                 string a = await File.ReadAllTextAsync(targetFile);
@@ -361,7 +374,7 @@ namespace MauiApp1.DB
         public async Task SaveUser()
         {
 
-            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "user.db");
+            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "user1.db");
             using (FileStream outputStream = File.Create(targetFile))
             {
                 await JsonSerializer.SerializeAsync(outputStream, userList);
@@ -370,7 +383,7 @@ namespace MauiApp1.DB
         public async Task LoadUser()
         {
 
-            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "user.db");
+            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "user1.db");
             if (File.Exists(targetFile))
             {
                 string a = await File.ReadAllTextAsync(targetFile);

@@ -14,6 +14,6 @@ namespace MauiApp1.Models
 
         public string Email { get; set; }
 
-        public byte[] Image { get; set; }
+       
     }
 }

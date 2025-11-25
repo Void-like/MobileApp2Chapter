@@ -5,7 +5,7 @@ namespace MauiApp1.Pages;
 public partial class SignPage : ContentPage
 {
     private bool Login;
-    private DBFile db;
+    public DBFile db = DBFile.GetDB();
     public User userNow;
     private List<User> userlist = new List<User>();
     public SignPage()
@@ -54,9 +54,8 @@ public partial class SignPage : ContentPage
         Sign();
     }
 
-    private void RegButton(object sender, EventArgs e)
+    private async void RegButton(object sender, EventArgs e)
     {
-        //потом переходим
-
+        await Shell.Current.GoToAsync("RegisterPage");
     }
 }

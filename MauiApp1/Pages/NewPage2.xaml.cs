@@ -8,7 +8,7 @@ namespace MauiApp1.Pages;
 public partial class NewPage2 : ContentPage
 {
     public ObservableCollection<MoviesAuthors> MainTablichka { get; set; } = new ObservableCollection<MoviesAuthors>();
-    public DBFile db;
+   
     private MoviesAuthors _selectedMovieAuthor;
     private Author _selectedAuthor;
     private Movie _selectedMovie;
@@ -16,11 +16,10 @@ public partial class NewPage2 : ContentPage
     public List<MoviesAuthors> ListMoviess { get; set; }
     public List<Author> AuthorList { get; set; }
     public List<Movie> MovieList { get; set; }
-
-    public NewPage2(DBFile db)
+    public DBFile db = DBFile.GetDB();
+    public NewPage2()
     {
-        InitializeComponent();
-        this.db = db;
+        InitializeComponent();   
         Tablichka();
         BindingContext = this;
     }

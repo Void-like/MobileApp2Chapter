@@ -14,13 +14,12 @@ public partial class NewPage1 : ContentPage
     public List<Author> AuthorTablichka { get; set; } = new List<Author>();
     public List<string> Genres { get; set; } = new List<string> { "Мужчина", "Девушка" };
    
-    public DBFile db;
+    public DBFile db = DBFile.GetDB();
     public Author SelectedAuthor { get; set; }
-    public NewPage1(DBFile db)
+    public NewPage1()
 	{
 		InitializeComponent();
-        BindingContext = this;
-        this.db = db;
+        BindingContext = this;     
         Tablichka();
 
     }
