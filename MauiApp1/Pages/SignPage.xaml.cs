@@ -1,6 +1,7 @@
 using MauiApp1.DB;
 using MauiApp1.Models;
 using MauiApp1;
+
 namespace MauiApp1.Pages;
 
 public partial class SignPage : ContentPage
@@ -40,7 +41,7 @@ public partial class SignPage : ContentPage
             if (Login)
             {
 
-                await Shell.Current.GoToAsync("NewPage1");
+                await Shell.Current.GoToAsync("//MainPage");
             }
             else
             {

@@ -4,21 +4,36 @@
         xmlns:local="clr-namespace:MauiApp1.Pages"
              x:Class="MauiApp1.AppShell"
              Title="AppShell">
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <StackLayout>
+                <Button Text="Выйти" Clicked="Clouse"/>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>
     
-    <TabBar>
-        <Tab Title="Авторизация" >
-            <ShellContent Route="Sign" ContentTemplate="{DataTemplate local:SignPage}" />
+    
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <StackLayout>
+                <Label Text="Страницы" FontSize="25"/>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+    
+ 
+    <TabBar >
+        <Tab Title="Авторизация" Shell.BackgroundColor="Orange" Shell.ForegroundColor="Black" Shell.FlyoutHeight="500" >
+            <ShellContent Route="Sign" ContentTemplate="{DataTemplate local:SignPage}"  />
         </Tab>
         <Tab Title="Регаемся" >
             <ShellContent Route="Reg" ContentTemplate="{DataTemplate local:RegisterPage}" />
         </Tab>
-
-
     </TabBar>
 
 
     <FlyoutItem Title="Основное" Route="BaseMain">
-        <Tab Title="Фильмы">
+        <Tab Title="Фильмы" Shell.BackgroundColor="Green" Shell.ForegroundColor="White" Shell.FlyoutHeight="500">
             <ShellContent Title="Фильмы" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
         </Tab>
         <Tab Title="Авторы">
@@ -28,7 +43,7 @@
 
 
     <FlyoutItem Title="Связь">
-        <Tab Title="Связь">
+        <Tab Title="Связь"  Shell.BackgroundColor="Blue" Shell.ForegroundColor="Pink" Shell.FlyoutHeight="500">
             <ShellContent Title="Страница 2" ContentTemplate="{DataTemplate local:NewPage2}" Route="NewPage2" />
         </Tab>
     </FlyoutItem>
