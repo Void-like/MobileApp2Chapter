@@ -22,9 +22,9 @@
     </Shell.FlyoutHeaderTemplate>
 
 
-    <Tab Route="TydaNado"  Shell.BackgroundColor="Orange" Shell.ForegroundColor="Black" Shell.FlyoutHeight="200" >
-        <ShellContent Route="Sign" ContentTemplate="{DataTemplate local:SignPage}"  />
-        <ShellContent Route="Reg" ContentTemplate="{DataTemplate local:RegisterPage}" />
+    <Tab Route="TydaNado"  Shell.BackgroundColor="Orange" Shell.ForegroundColor="Black" Shell.FlyoutHeight="10" >
+        <ShellContent Title="Вход" Route="Sign" ContentTemplate="{DataTemplate local:SignPage}"  />
+        <ShellContent  Title="Регист" Route="Reg" ContentTemplate="{DataTemplate local:RegisterPage}" />
     </Tab>
 
 

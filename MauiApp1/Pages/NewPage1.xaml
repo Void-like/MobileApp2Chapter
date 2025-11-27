@@ -22,12 +22,11 @@
             <Picker x:Name="gender" ItemsSource="{Binding Genres}" />
             <Label Text="Духовное состояние"/>
             <Switch x:Name="LiveOrDie"/>
-
+            <Label x:Name="Peredacha"/>
 
 
             <!--Кнопочки-->
             <Button  Text="Сохранить" Clicked="Button_Clicked_Author"/>
-            <Button  Text="Home"  Clicked="Button_Clicked_Home"/>
             <Button  Text="Изменить" Clicked="OnChangeClicked"/>
             <Button Text="Удалить" Clicked="OnDeleteClicked"/>
 

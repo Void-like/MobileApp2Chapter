@@ -34,6 +34,7 @@ public partial class SignPage : ContentPage
               Login = true;
               LoginEntry.Text = null;
               PasswordEntry.Text = null;
+                  
               break;
             }
               
@@ -43,8 +44,8 @@ public partial class SignPage : ContentPage
             }
             if (Login)
             {
-
-                await Shell.Current.GoToAsync("//BaseMain");
+                
+                await Shell.Current.GoToAsync($"//BaseMain?name={userNow.Name}&email={userNow.Email}");
             }
             else
             {

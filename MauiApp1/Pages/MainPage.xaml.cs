@@ -7,8 +7,14 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 
+
+
+
 namespace MauiApp1.Pages
 {
+    [QueryProperty(nameof(Login1),"name")]
+    [QueryProperty(nameof(Email2), "email")]
+  
     public partial class MainPage : ContentPage
     {
         public ObservableCollection<Movie> MovieTablichkaUpdate { get; set; } = new ObservableCollection<Movie>();
@@ -18,6 +24,8 @@ namespace MauiApp1.Pages
       
        public Movie SelectedMovies { get; set; } = new Movie();
 
+        public string Login1 { get; set; }
+        public string Email2 {  get; set; }
         public MainPage()
         {
             InitializeComponent();
@@ -41,6 +49,8 @@ namespace MauiApp1.Pages
         
         public async void Tablichka()
         {
+            Login.Text = Login1;
+            Email.Text = Email2;
             MovieTablichkaUpdate.Clear();
             MovieTablichka = await (await DBFile.GetDB()).GetMovieList();
             for (int i = 0;i< MovieTablichka.Count; i++)

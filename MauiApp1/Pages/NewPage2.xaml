@@ -15,7 +15,6 @@
         
         <!--кнопочки-->
         <Button  Text="Сохранить"  Clicked="Button_Clicked_Save"/>
-        <Button  Text="Home"  Clicked="Button_Clicked"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
         <Button Text="Удалить" Clicked="OnDeleteClicked"/>
         
