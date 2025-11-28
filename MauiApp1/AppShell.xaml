@@ -20,16 +20,12 @@
             </StackLayout>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
-    
- 
-    <TabBar >
-        <Tab Title="Авторизация" Shell.BackgroundColor="Orange" Shell.ForegroundColor="Black" Shell.FlyoutHeight="500" >
-            <ShellContent Route="Sign" ContentTemplate="{DataTemplate local:SignPage}"  />
-        </Tab>
-        <Tab Title="Регаемся" >
-            <ShellContent Route="Reg" ContentTemplate="{DataTemplate local:RegisterPage}" />
-        </Tab>
-    </TabBar>
+
+
+    <Tab Route="TydaNado"  Shell.BackgroundColor="Orange" Shell.ForegroundColor="Black" Shell.FlyoutHeight="200" >
+        <ShellContent Route="Sign" ContentTemplate="{DataTemplate local:SignPage}"  />
+        <ShellContent Route="Reg" ContentTemplate="{DataTemplate local:RegisterPage}" />
+    </Tab>
 
 
     <FlyoutItem Title="Основное" Route="BaseMain">

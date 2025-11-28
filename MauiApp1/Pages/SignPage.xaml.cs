@@ -32,16 +32,19 @@ public partial class SignPage : ContentPage
             {
               userNow = userlist[i];
               Login = true;
+              LoginEntry.Text = null;
+              PasswordEntry.Text = null;
               break;
             }
-            
-            
-            
+              
+
+
+
             }
             if (Login)
             {
 
-                await Shell.Current.GoToAsync("//MainPage");
+                await Shell.Current.GoToAsync("//BaseMain");
             }
             else
             {
