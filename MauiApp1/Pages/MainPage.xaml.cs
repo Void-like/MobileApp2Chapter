@@ -5,6 +5,7 @@ using MauiApp1.Pages;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Web;
 
 
 
@@ -12,20 +13,40 @@ using System.Threading.Tasks;
 
 namespace MauiApp1.Pages
 {
-    [QueryProperty(nameof(Login1),"name")]
-    [QueryProperty(nameof(Email2), "email")]
-  
+    [QueryProperty(nameof(Login), "Name")]
+    [QueryProperty(nameof(Email), "Email")]
+
     public partial class MainPage : ContentPage
     {
+
+        string login;
+        string email;
+        public string Login
+        {
+            get => login;
+            set
+            {
+                login = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Email
+        {
+            get => email;
+            set
+            {
+                email = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<Movie> MovieTablichkaUpdate { get; set; } = new ObservableCollection<Movie>();
         public List<Movie> MovieTablichka { get; set; } = new List<Movie>();
-        public List<string> Genres { get; set; } = new List<string> { "Хоррор","Комедия","Романтика","Боевик"};
-      
-      
-       public Movie SelectedMovies { get; set; } = new Movie();
+        public List<string> Genres { get; set; } = new List<string> { "Хоррор", "Комедия", "Романтика", "Боевик" };
 
-        public string Login1 { get; set; }
-        public string Email2 {  get; set; }
+
+        public Movie SelectedMovies { get; set; } = new Movie();
+
+
         public MainPage()
         {
             InitializeComponent();
@@ -36,7 +57,7 @@ namespace MauiApp1.Pages
         {
             if (String.IsNullOrEmpty(TitleText.Text) && String.IsNullOrEmpty(DiscriptionText.Text))
             {
-                await DisplayAlert("Ошибка", "Фильм  не сохранен", "Ок");    
+                await DisplayAlert("Ошибка", "Фильм  не сохранен", "Ок");
             }
             else
             {
@@ -44,23 +65,21 @@ namespace MauiApp1.Pages
                 await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL);
                 await DisplayAlert("Успех", "Фильм сохранен", "Ок");
                 Tablichka();
-            }    
+            }
         }
-        
+
         public async void Tablichka()
         {
-            Login.Text = Login1;
-            Email.Text = Email2;
             MovieTablichkaUpdate.Clear();
             MovieTablichka = await (await DBFile.GetDB()).GetMovieList();
-            for (int i = 0;i< MovieTablichka.Count; i++)
+            for (int i = 0; i < MovieTablichka.Count; i++)
             {
                 MovieTablichkaUpdate.Add(MovieTablichka[i]);
             }
         }
         public void Button_Clicked_Movie(object sender, EventArgs e)
         {
-          SaveMovie();
+            SaveMovie();
         }
 
         public async void OnChangeClicked(object sender, EventArgs e)
@@ -72,7 +91,7 @@ namespace MauiApp1.Pages
               $"Вы уверены, что хотите изменить  автора {SelectedMovies.Name}?", "Да", "Нет");
                 if (result)
                 {
-                    if (String.IsNullOrEmpty(TitleText.Text) || String.IsNullOrEmpty(DiscriptionText.Text) || String.IsNullOrEmpty(GenreList.SelectedItem.ToString())) 
+                    if (String.IsNullOrEmpty(TitleText.Text) || String.IsNullOrEmpty(DiscriptionText.Text) || String.IsNullOrEmpty(GenreList.SelectedItem.ToString()))
                     {
 
 
@@ -94,7 +113,7 @@ namespace MauiApp1.Pages
             {
                 await DisplayAlert("ОШИБКА МОЛОДОСТИ", "Не выбран айтем", "Емае");
             }
-            
+
         }
         public async void OnDeleteClicked(object sender, EventArgs e)
         {
@@ -152,17 +171,17 @@ namespace MauiApp1.Pages
 
         private async void LoadImage(object sender, EventArgs e)
         {
-            FilePicker.Default.PickAsync();
+            await FilePicker.Default.PickAsync();
             var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>();
-            dictionary[DevicePlatform.Android] = new List<string>{ "jpg", "png","jpeg" };
+            dictionary[DevicePlatform.Android] = new List<string> { "jpg", "png", "jpeg" };
             dictionary[DevicePlatform.WinUI] = new List<string> { "jpg", "png", "jpeg" };
             PickOptions pickOptions = new PickOptions();
             pickOptions.FileTypes = new FilePickerFileType(dictionary);
             FileResult fileResult = await FilePicker.Default.PickAsync(pickOptions);
-            if (fileResult != null) 
+            if (fileResult != null)
             {
                 Stream inputStream = await fileResult.OpenReadAsync();
-                imageL.Source = ImageSource.FromStream(()=>inputStream);
+                imageL.Source = ImageSource.FromStream(() => inputStream);
 
 
 
@@ -170,9 +189,23 @@ namespace MauiApp1.Pages
 
         }
 
-     
+        async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bool GOGOGO = false;
+            Movie movie = e.CurrentSelection.FirstOrDefault() as Movie;
+            var navigationParameter = new ShellNavigationQueryParameters
+    {
+        { "Movie", movie }
+    };
+            GOGOGO = await DisplayAlert("тпаемся", "пошли на другую страницу", "давай","не");
+            if (GOGOGO) 
+            {
+                await Shell.Current.GoToAsync($"//NewPage2", navigationParameter);
+            }
+        }
+
     }
-    }
+}
 
     
 

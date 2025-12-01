@@ -4,6 +4,7 @@
              x:Class="MauiApp1.Pages.NewContent1">
     <VerticalStackLayout>
         <Label Text="Тут могла быть ваша реклама"/>
-         
+        <Button WidthRequest="100" HeightRequest="100" BackgroundColor="Purple" Text="здесь" TextColor="White"/>
+        <Label Text="Тут могла быть ваша реклама"/>
     </VerticalStackLayout>
 </ContentView>

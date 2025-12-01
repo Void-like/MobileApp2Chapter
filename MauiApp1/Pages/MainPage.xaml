@@ -8,9 +8,6 @@
   
     <ScrollView>
         <VerticalStackLayout>
-            <!--Логинчик и почта-->
-            <Label x:Name="Login"/>
-            <Label x:Name="Email"/>
             <!--бэ-->
           
             <Label Text="Название" />
@@ -31,14 +28,19 @@
         <Image x:Name="imageL"/>
             <!--кнопопчки-->
         <Button Text="загрузить картинку" Clicked="LoadImage"/>
-            <Button  Text="Сохранить" Clicked="Button_Clicked_Movie"/>
-            <Button  Text="Изменить" Clicked="OnChangeClicked"/>
+        <Button  Text="Сохранить" Clicked="Button_Clicked_Movie"/>
+        <Button  Text="Изменить" Clicked="OnChangeClicked"/>
         <Button  Text="Удалить" Clicked="OnDeleteClicked" />
-
+       
+            <!--изи деньги-->
             <pages:NewContent1 WidthRequest="200" HeightRequest="300"/>
-
+            <!--Логинчик и почта-->
+            <Label Text="Логин и почта"/>
+            <Label Text="{Binding Login}"/>
+            <Label Text="{Binding Email}"/>
             <!--табличка-->
-            <CollectionView ItemsSource="{Binding MovieTablichkaUpdate}" SelectedItem="{Binding SelectedMovies}"   SelectionMode="Single">
+            <Label Text="Фильмы"/>
+            <CollectionView ItemsSource="{Binding MovieTablichkaUpdate}" SelectedItem="{Binding SelectedMovies}"   SelectionMode="Single" SelectionChanged="OnCollectionViewSelectionChanged">
                 <CollectionView.ItemTemplate>
                 <DataTemplate>
 

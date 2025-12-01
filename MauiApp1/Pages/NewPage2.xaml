@@ -17,9 +17,13 @@
         <Button  Text="Сохранить"  Clicked="Button_Clicked_Save"/>
         <Button  Text="Изменить" Clicked="OnChangeClicked"/>
         <Button Text="Удалить" Clicked="OnDeleteClicked"/>
-        
-        
+        <!--Ты работать будешь?-->
+        <Label Text="да тут фильм чисто по приколу"/>
+        <StackLayout BindingContext="{Binding Movik}">
+            <Label Text="{Binding Name}"/>
+        </StackLayout>
         <!--табличка-->
+        <Label Text="Табличка"/>
         <ListView ItemsSource="{Binding MainTablichka}" SelectedItem="{Binding SelectedMovieAuthor}" x:Name="Tablyxa" SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate>

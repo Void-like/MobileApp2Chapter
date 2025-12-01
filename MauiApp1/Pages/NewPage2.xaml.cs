@@ -5,8 +5,20 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 namespace MauiApp1.Pages;
+
+[QueryProperty(nameof(Movik), "Movie")]
 public partial class NewPage2 : ContentPage
 {
+    Movie movik;
+    public Movie Movik
+    {
+        get => movik;
+        set
+        {
+            movik = value;
+            OnPropertyChanged();
+        }
+    }
     public ObservableCollection<MoviesAuthors> MainTablichka { get; set; } = new ObservableCollection<MoviesAuthors>();
    
     private MoviesAuthors _selectedMovieAuthor;

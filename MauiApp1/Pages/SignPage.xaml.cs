@@ -1,4 +1,4 @@
-using MauiApp1.DB;
+п»їusing MauiApp1.DB;
 using MauiApp1.Models;
 using MauiApp1;
 
@@ -20,7 +20,7 @@ public partial class SignPage : ContentPage
         Login = false;
         if (String.IsNullOrEmpty(LoginEntry.Text) || String.IsNullOrEmpty(PasswordEntry.Text))
 		{
-            await DisplayAlert("Ошибка", $"Заполните пожалуйста все данные", "OK");
+            await DisplayAlert("ГЋГёГЁГЎГЄГ ", $"Г‡Г ГЇГ®Г«Г­ГЁГІГҐ ГЇГ®Г¦Г Г«ГіГ©Г±ГІГ  ГўГ±ГҐ Г¤Г Г­Г­Г»ГҐ", "OK");
         }
 		else
 		{
@@ -44,12 +44,12 @@ public partial class SignPage : ContentPage
             }
             if (Login)
             {
-                
-                await Shell.Current.GoToAsync($"//BaseMain?name={userNow.Name}&email={userNow.Email}");
+                //РїРµСЂРІР°СЏ РїРµСЂРµРґР°С‡Р°
+                await Shell.Current.GoToAsync($"//MainPage?Name={userNow.Name}&Email={userNow.Email}");
             }
             else
             {
-                await DisplayAlert("Ошибка","Неправильный пароль или логин","Ок");
+                await DisplayAlert("ГЋГёГЁГЎГЄГ ","ГЌГҐГЇГ°Г ГўГЁГ«ГјГ­Г»Г© ГЇГ Г°Г®Г«Гј ГЁГ«ГЁ Г«Г®ГЈГЁГ­","ГЋГЄ");
             }
         }
 		

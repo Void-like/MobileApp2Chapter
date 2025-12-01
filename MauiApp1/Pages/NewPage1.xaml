@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.Pages.NewPage1"
+              xmlns:pages="clr-namespace:MauiApp1.Pages"
              Title="Авторы">
 
     <ScrollView>
@@ -30,7 +30,8 @@
             <Button  Text="Изменить" Clicked="OnChangeClicked"/>
             <Button Text="Удалить" Clicked="OnDeleteClicked"/>
 
-
+            <!--изи деньги-->
+            <pages:NewContent1 WidthRequest="200" HeightRequest="300"/>
             <!--Табличка-->
             <CarouselView x:Name="Tablicka" CurrentItem="{Binding SelectedAuthor}" ItemsSource="{Binding AuthorTablichkaUpdate}">
                 <CarouselView.ItemTemplate>
