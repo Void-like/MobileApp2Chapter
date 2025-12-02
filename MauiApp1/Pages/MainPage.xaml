@@ -25,7 +25,7 @@
         <Label Text="0" x:Name="SliderNumber"/>
         <Slider Minimum="0" Maximum="360" x:Name="SliderMinutes" ValueChanged="OnSliderValueChanged"/>
         <Label Text="Картинка"/>
-        <Image Source="{Binding Image}" x:Name="ADDIMAGE"/>
+            <Image Source="{Binding Image}" x:Name="ADDIMAGE"/>
             <!--кнопопчки-->
         <Button Text="загрузить картинку" Clicked="LoadImage"/>
         <Button  Text="Сохранить" Clicked="Button_Clicked_Movie"/>

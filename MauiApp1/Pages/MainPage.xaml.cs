@@ -18,7 +18,7 @@ namespace MauiApp1.Pages
 
     public partial class MainPage : ContentPage
     {
-
+        string Silochka;
         string login;
         string email;
         ImageSource image;
@@ -77,8 +77,8 @@ namespace MauiApp1.Pages
                 }
                 else
                 {
-                  
-                    await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, ADDIMAGE.Source.ToString());
+                   
+                    await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, Silochka);
                 }
                     await DisplayAlert("Успех", "Фильм сохранен", "Ок");
                 Tablichka();
@@ -118,8 +118,8 @@ namespace MauiApp1.Pages
                     {
                         if (String.IsNullOrEmpty(Image.ToString()))
                         {
-
-                            await (await DBFile.GetDB()).ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, ADDIMAGE.Source.ToString());
+                            
+                            await (await DBFile.GetDB()).ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, Silochka);
                         }
                         else
                         {
@@ -196,7 +196,7 @@ namespace MauiApp1.Pages
 
         private async void LoadImage(object sender, EventArgs e)
         {
-            await FilePicker.PickAsync();
+           
             var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>();
             dictionary[DevicePlatform.Android] = new List<string> { "jpg", "png", "jpeg" };
             PickOptions pickOptions = new PickOptions();
@@ -205,8 +205,7 @@ namespace MauiApp1.Pages
             {
                 Stream inputStream = await fileResult.OpenReadAsync();
                  Image = ImageSource.FromStream(() => inputStream);
-           
-
+                Silochka = fileResult.FullPath;
             }
 
         }
