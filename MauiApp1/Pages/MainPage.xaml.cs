@@ -55,15 +55,21 @@ namespace MauiApp1.Pages
         }
         public async void SaveMovie()
         {
-            if (String.IsNullOrEmpty(TitleText.Text) && String.IsNullOrEmpty(DiscriptionText.Text))
+            if (String.IsNullOrEmpty(TitleText.Text) && String.IsNullOrEmpty(DiscriptionText.Text) && String.IsNullOrEmpty(GenreList.SelectedItem.ToString()))
             {
                 await DisplayAlert("Ошибка", "Фильм  не сохранен", "Ок");
             }
             else
             {
-
-                await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL);
-                await DisplayAlert("Успех", "Фильм сохранен", "Ок");
+                if (String.IsNullOrEmpty(imageL.Source.ToString()))
+                {
+                    await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL.Source.ToString());
+                }
+                else
+                {
+                    await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, "Images/dotnet_bot.png");
+                }
+                    await DisplayAlert("Успех", "Фильм сохранен", "Ок");
                 Tablichka();
             }
         }
@@ -99,8 +105,16 @@ namespace MauiApp1.Pages
                     }
                     else
                     {
-                        await (await DBFile.GetDB()).ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL);
-                        await DisplayAlert("Успех", "Киношка поменялась", "Емае");
+                        if (imageL != null)
+                        {
+
+                            await (await DBFile.GetDB()).ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL.Source.ToString());
+                        }
+                        else
+                        {
+                            await (await DBFile.GetDB()).ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, "Images/dotnet_bot.png");
+                        }
+                            await DisplayAlert("Успех", "Киношка поменялась", "Емае");
                         Tablichka();
                     }
                 }
@@ -182,8 +196,6 @@ namespace MauiApp1.Pages
             {
                 Stream inputStream = await fileResult.OpenReadAsync();
                 imageL.Source = ImageSource.FromStream(() => inputStream);
-
-
 
             }
 

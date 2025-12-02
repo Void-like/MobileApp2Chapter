@@ -65,7 +65,7 @@ namespace MauiApp1.DB
 
         }
        
-        public async Task ChangeMovie(int id, string name, string description, DateTime date, double ocenochka, string genre, double minutes,Image image)
+        public async Task ChangeMovie(int id, string name, string description, DateTime date, double ocenochka, string genre, double minutes,string image)
         {
             Movie movies = new Movie();
             movies.Id = id;
@@ -239,7 +239,7 @@ namespace MauiApp1.DB
             await SaveFileDiscriminant();
             await SaveFileAuthor();
         }
-        public async Task AddMovies(string name, string description, DateTime date, double ocenochka, string genre,double minutes, Image image )
+        public async Task AddMovies(string name, string description, DateTime date, double ocenochka, string genre,double minutes, string image )
         {
             Movie movies = new Movie();
             movies.Id = ints[1];
