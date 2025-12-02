@@ -25,7 +25,7 @@
         <Label Text="0" x:Name="SliderNumber"/>
         <Slider Minimum="0" Maximum="360" x:Name="SliderMinutes" ValueChanged="OnSliderValueChanged"/>
         <Label Text="Картинка"/>
-        <Image x:Name="imageL"/>
+        <Image Source="{Binding Image}" x:Name="ADDIMAGE"/>
             <!--кнопопчки-->
         <Button Text="загрузить картинку" Clicked="LoadImage"/>
         <Button  Text="Сохранить" Clicked="Button_Clicked_Movie"/>
@@ -63,8 +63,8 @@
                             <Label Text="{Binding Ocenochka}"  Margin="10,0,5,0" Grid.Row="4"/>
                             <Label Text="{Binding Genre}"  Margin="10,0,5,0" Grid.Row="5"/>
                             <Label Text="{Binding Minutes}"  Margin="10,0,5,0" Grid.Row="6"/>
-                            <Image Source="{Binding Image}" Margin="10,0,5,0" Grid.Row="7"/>
-                           
+                            <Image Source="{Binding Image}" Margin="10,0,5,0"/>
+
 
                         </Grid>
                 </DataTemplate>

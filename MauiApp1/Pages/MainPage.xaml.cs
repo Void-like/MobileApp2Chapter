@@ -21,6 +21,16 @@ namespace MauiApp1.Pages
 
         string login;
         string email;
+        ImageSource image;
+        public ImageSource Image
+        {
+            get => image; 
+            set 
+            { 
+            image = value;
+            OnPropertyChanged();
+            }
+        }
         public string Login
         {
             get => login;
@@ -61,13 +71,14 @@ namespace MauiApp1.Pages
             }
             else
             {
-                if (String.IsNullOrEmpty(imageL.Source.ToString()))
+                if (Image == null)
                 {
-                    await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL.Source.ToString());
+                    await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, "Images/dotnet_bot.png");
                 }
                 else
                 {
-                    await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, "Images/dotnet_bot.png");
+                  
+                    await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, ADDIMAGE.Source.ToString());
                 }
                     await DisplayAlert("Успех", "Фильм сохранен", "Ок");
                 Tablichka();
@@ -105,10 +116,10 @@ namespace MauiApp1.Pages
                     }
                     else
                     {
-                        if (imageL != null)
+                        if (String.IsNullOrEmpty(Image.ToString()))
                         {
 
-                            await (await DBFile.GetDB()).ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, imageL.Source.ToString());
+                            await (await DBFile.GetDB()).ChangeMovie(SelectedMovies.Id, TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, ADDIMAGE.Source.ToString());
                         }
                         else
                         {
@@ -185,17 +196,16 @@ namespace MauiApp1.Pages
 
         private async void LoadImage(object sender, EventArgs e)
         {
-            await FilePicker.Default.PickAsync();
+            await FilePicker.PickAsync();
             var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>();
             dictionary[DevicePlatform.Android] = new List<string> { "jpg", "png", "jpeg" };
-            dictionary[DevicePlatform.WinUI] = new List<string> { "jpg", "png", "jpeg" };
             PickOptions pickOptions = new PickOptions();
-            pickOptions.FileTypes = new FilePickerFileType(dictionary);
-            FileResult fileResult = await FilePicker.Default.PickAsync(pickOptions);
+            FileResult fileResult = await FilePicker.PickAsync(pickOptions);
             if (fileResult != null)
             {
                 Stream inputStream = await fileResult.OpenReadAsync();
-                imageL.Source = ImageSource.FromStream(() => inputStream);
+                 Image = ImageSource.FromStream(() => inputStream);
+           
 
             }
 
