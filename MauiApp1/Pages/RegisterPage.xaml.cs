@@ -1,10 +1,10 @@
-using MauiApp1.DB;
-
+п»їusing MauiApp1.DB;
+using MauiApp1.Models;
 namespace MauiApp1.Pages;
 
 public partial class RegisterPage : ContentPage
 {
-    
+    private List<User> userlist = new List<User>();
     public RegisterPage()
 	{
 		InitializeComponent();
@@ -13,7 +13,7 @@ public partial class RegisterPage : ContentPage
     {
         if (String.IsNullOrEmpty(LoginEntry.Text) || String.IsNullOrEmpty(PasswordEntry.Text)|| String.IsNullOrEmpty(SecondPasswordEntry.Text)|| String.IsNullOrEmpty(Mail.Text))
         {
-            await DisplayAlert("Ошибка", $"Заполните пожалуйста все данные", "OK");
+            await DisplayAlert("ГЋГёГЁГЎГЄГ ", $"Г‡Г ГЇГ®Г«Г­ГЁГІГҐ ГЇГ®Г¦Г Г«ГіГ©Г±ГІГ  ГўГ±ГҐ Г¤Г Г­Г­Г»ГҐ", "OK");
         }
         else
         {
@@ -21,18 +21,38 @@ public partial class RegisterPage : ContentPage
             {
                 if(Mail.Text.Contains("@")&& Mail.Text.Contains("."))
                 {
-                    await (await DBFile.GetDB()).AddUser(LoginEntry.Text,PasswordEntry.Text,Mail.Text);
-                    await DisplayAlert("Успех", "вы зарегались", "OK");
+                    bool manchik = true;
+                    for (int i = 0; i < userlist.Count;i++)
+                    {
+                        if (userlist[i].Name == LoginEntry.Text)
+                        {
+                            manchik = true;
+                        }
+                        else
+                        {
+                            manchik = false;
+                        }
+                    }
+                    if (manchik)
+                    {
+                        await DisplayAlert("РћС€РёР±РєР°", "РўР°РєРѕР№ Р»РѕРіРёРЅ СѓР¶Рµ РµСЃС‚СЊ", "OK");
+                    }
+                    else
+                    {
+                        await (await DBFile.GetDB()).AddUser(LoginEntry.Text, PasswordEntry.Text, Mail.Text);
+                        await DisplayAlert("Г“Г±ГЇГҐГµ", "ГўГ» Г§Г Г°ГҐГЈГ Г«ГЁГ±Гј", "OK");
+
+                    }
                 }
                 else
                 {
-                    await DisplayAlert("Ошибка", "Напишите коректнную почту", "OK");
+                    await DisplayAlert("ГЋГёГЁГЎГЄГ ", "ГЌГ ГЇГЁГёГЁГІГҐ ГЄГ®Г°ГҐГЄГІГ­Г­ГіГѕ ГЇГ®Г·ГІГі", "OK");
                 }
 
             }
             else
             {
-                await DisplayAlert("Ошибка", $"Повторите пароль", "OK");
+                await DisplayAlert("ГЋГёГЁГЎГЄГ ", $"ГЏГ®ГўГІГ®Г°ГЁГІГҐ ГЇГ Г°Г®Г«Гј", "OK");
             }
 
 
