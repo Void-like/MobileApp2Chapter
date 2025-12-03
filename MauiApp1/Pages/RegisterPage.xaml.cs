@@ -21,17 +21,15 @@ public partial class RegisterPage : ContentPage
             {
                 if(Mail.Text.Contains("@")&& Mail.Text.Contains("."))
                 {
-                    bool manchik = true;
+                    List<User> userlist = await (await DBFile.GetDB()).GetUserList();
+                    bool manchik = false;
                     for (int i = 0; i < userlist.Count;i++)
                     {
                         if (userlist[i].Name == LoginEntry.Text)
                         {
                             manchik = true;
                         }
-                        else
-                        {
-                            manchik = false;
-                        }
+                       
                     }
                     if (manchik)
                     {
