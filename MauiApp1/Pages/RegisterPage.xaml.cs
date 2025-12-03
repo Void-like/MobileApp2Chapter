@@ -39,6 +39,10 @@ public partial class RegisterPage : ContentPage
                     {
                         await (await DBFile.GetDB()).AddUser(LoginEntry.Text, PasswordEntry.Text, Mail.Text);
                         await DisplayAlert("Óñïåõ", "âû çàðåãàëèñü", "OK");
+                        LoginEntry.Text = null;
+                        PasswordEntry.Text = null;
+                        SecondPasswordEntry.Text = null;
+                        Mail.Text = null;
 
                     }
                 }

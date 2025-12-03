@@ -79,6 +79,7 @@ namespace MauiApp1.Pages
                 {
                    
                     await (await DBFile.GetDB()).AddMovies(TitleText.Text, DiscriptionText.Text, DiscriptionDate.Date, StepperSelect.Value, GenreList.SelectedItem.ToString(), SliderMinutes.Value, Silochka);
+                    
                 }
                     await DisplayAlert("Успех", "Фильм сохранен", "Ок");
                 Tablichka();
@@ -87,6 +88,7 @@ namespace MauiApp1.Pages
 
         public async void Tablichka()
         {
+            Image = "";
             MovieTablichkaUpdate.Clear();
             MovieTablichka = await (await DBFile.GetDB()).GetMovieList();
             for (int i = 0; i < MovieTablichka.Count; i++)
@@ -213,7 +215,7 @@ namespace MauiApp1.Pages
         async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool GOGOGO = false;
-            Movie movie = e.CurrentSelection.FirstOrDefault() as Movie;
+            Movie movie =  e.CurrentSelection.FirstOrDefault() as Movie;
             var navigationParameter = new ShellNavigationQueryParameters
     {
         { "Movie", movie }
@@ -221,7 +223,9 @@ namespace MauiApp1.Pages
             GOGOGO = await DisplayAlert("тпаемся", "пошли на другую страницу", "давай","не");
             if (GOGOGO) 
             {
+                Image = "";
                 await Shell.Current.GoToAsync($"//NewPage2", navigationParameter);
+                
             }
         }
 
